@@ -26,6 +26,7 @@ function findLongestWord(array) {
 // Iteration #3: Calculate the sum
 
 const numbers = [6, 12, 1, 18, 13, 16, 2, 1, 8, 10];
+
 function sumArray(array) {
   let total = 0;
   for (let number of array) {
@@ -61,6 +62,23 @@ const wordsArr = [
   'palace'
 ];
 
+function sumArrayLength(array) {
+  let total = 0;
+  for (let word of array) {
+    total += word.length;
+  }
+  return total;
+}
+
+function averageWordLength(array) {
+  if (array.length === 0) {
+    return null;
+  }
+  const total = sumArrayLength(array);
+  const average = total / array.length;
+  return average;
+}
+
 // Iteration #5: Unique arrays
 const wordsUnique = [
   'crab',
@@ -76,6 +94,19 @@ const wordsUnique = [
   'bring'
 ];
 
+let uniquifyArray = array => {
+  if (array.length === 0) {
+    return [];
+  }
+  let auxArray = [];
+  for (let i = 0; i < array.length; i++) {
+    if (auxArray.indexOf(array[i]) < 0) {
+      auxArray.push(array[i]);
+    }
+  }
+  return auxArray;
+};
+
 // Iteration #6: Find elements
 const wordsFind = [
   'machine',
@@ -87,6 +118,15 @@ const wordsFind = [
   'truth',
   'disobedience'
 ];
+
+let doesWordExist = (array, word) => {
+  for (let i = 0; i < array.length; i++) {
+    if (word === array[i]) {
+      return true;
+    }
+  }
+  return false;
+};
 
 // Iteration #7: Count repetition
 const wordsCount = [
@@ -102,6 +142,16 @@ const wordsCount = [
   'disobedience',
   'matter'
 ];
+
+let howManyTimes = (array, word) => {
+  let counter = 0;
+  for (let i = 0; i < array.length; i++) {
+    if (word === array[i]) {
+      counter++;
+    }
+  }
+  return counter;
+};
 
 // Iteration #8: Bonus
 
@@ -127,3 +177,30 @@ const matrix = [
   [20, 73, 35, 29, 78, 31, 90, 1, 74, 31, 49, 71, 48, 86, 81, 16, 23, 57, 5, 54],
   [1, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 1, 89, 19, 67, 48]
 ];
+
+function greatestProduct(matrix) {
+  let max = 0;
+  let result = 0;
+  let i = 0;
+  let j = 0;
+
+  for (; i < matrix.length; i++) {
+    for (j = 0; j < matrix[0].length; j++) {
+      if (j - 3 >= 0) {
+        result = matrix[i][j] * matrix[i][j - 1] * matrix[i][j - 2] * matrix[i][j - 3];
+        if (max < result) max = result;
+      }
+
+      if (i - 3 >= 0) {
+        result = matrix[i][j] * matrix[i - 1][j] * matrix[i - 2][j] * matrix[i - 3][j];
+        if (max < result) max = result;
+      }
+
+      if (i - 3 >= 0 && j - 3 >= 0) {
+        result = matrix[i][j] * matrix[i - 1][j - 1] * matrix[i - 2][j - 2] * matrix[i - 3][j - 3];
+        if (max < result) max = result;
+      }
+    }
+  }
+  return max;
+}
